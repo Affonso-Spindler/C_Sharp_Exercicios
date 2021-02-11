@@ -150,11 +150,11 @@ namespace CadastroCliente.DB
                                 cliente.Telefone2 = dr["telefone2"].ToString();
                                 cliente.Datnascimento = Convert.ToDateTime(dr["datnascimento"]);
                                 cliente.Idade = Convert.ToInt16(dr["idade"]);
-                                cliente.Cep= dr["cep"].ToString();
-                                cliente.Logradouro= dr["logradouro"].ToString();
-                                cliente.Localidade= dr["localidade"].ToString();
-                                cliente.Bairro= dr["bairro"].ToString();
-                                cliente.Numero= dr["numero"].ToString();
+                                cliente.Cep = dr["cep"].ToString();
+                                cliente.Logradouro = dr["logradouro"].ToString();
+                                cliente.Localidade = dr["localidade"].ToString();
+                                cliente.Bairro = dr["bairro"].ToString();
+                                cliente.Numero = dr["numero"].ToString();
                                 cliente.Uf = dr["uf"].ToString();
                                 cliente.Complemento = dr["complemento"].ToString();
                             }
@@ -177,18 +177,19 @@ namespace CadastroCliente.DB
                 string strSql = @"SELECT codcliente, CASE indtipopessoa WHEN 0 THEN 'Física' ELSE 'Jurídica' END AS tipopessoa
                                     , Cpfcnpj, nomcliente, email FROM CLIENTES WHERE 1 = 1 ";
 
+                if (!string.IsNullOrWhiteSpace(nomCliente))
+                {
+                    strSql += $" AND nomcliente like '%{nomCliente}%'";
+                }
+                if (!string.IsNullOrWhiteSpace(email))
+                {
+                    strSql += $" AND email like '%{email}%'";
+                }
+
                 using (MySqlConnection conn = DbHelper.GetConnection())
                 {
                     using (MySqlCommand comando = new MySqlCommand(strSql, conn))
                     {
-                        if (!string.IsNullOrWhiteSpace(nomCliente))
-                        {
-                            strSql += string.Format(" AND nomcliente like '%{0}%'", nomCliente);
-                        }
-                        if (!string.IsNullOrWhiteSpace(email))
-                        {
-                            strSql += string.Format(" AND email like '%{0}%'", email);
-                        }
                         dt.Load(comando.ExecuteReader());
 
                         return dt;
