@@ -36,5 +36,34 @@ namespace CadastroCliente
 
             return cep;
         }
+
+        public static T GetValue<T>(object value, IFormatProvider provider = null)
+        {
+            Type type = typeof(T);
+            //GetUnderlyingType testa se type permite nulo, caso não permita ele retorna null
+            if (Nullable.GetUnderlyingType(type) != null)
+                type = Nullable.GetUnderlyingType(type);
+
+            if (value == null || value == DBNull.Value || value.ToString() == "")
+                return default(T);
+
+            try
+            {
+                if (provider != null)
+                    return (T)Convert.ChangeType(value, type, provider);
+                else
+                    return (T)Convert.ChangeType(value, type);
+            }
+            catch
+            {
+                return default(T);
+            }
+        }
+
+        public static short CalculaIdade(DateTime datNascimento)
+        {
+            short idade = Convert.ToInt16((DateTime.Today - datNascimento).TotalDays / 365.2425);
+            return idade;
+        }
     }
 }

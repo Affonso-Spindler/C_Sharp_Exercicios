@@ -1,5 +1,6 @@
 ﻿using CadastroCliente.Classes;
 using CadastroCliente.DB;
+using CadastroCliente.Extensions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -58,26 +59,44 @@ namespace CadastroCliente
 
                 if (cliente != null)
                 {
-                    txtCodcliente.Text = cliente.Codcliente.ToString();
-                    txtNomcliente.Text = cliente.Nomcliente;
-                    txtEmail.Text = cliente.Email;
-                    mskCPFCNPJ.Text = cliente.Cpfcnpj;
-                    mskDdd1.Text = cliente.Ddd1;
-                    mskTelefone1.Text = cliente.Telefone1;
-                    mskDdd2.Text = cliente.Ddd2;
-                    mskTelefone2.Text = cliente.Telefone2;
-                    Datnascimento.Value = cliente.Datnascimento;
-                    txtIdade.Text = cliente.Idade.ToString();
-                    cboIndTipoPessoa.SelectedValue = cliente.Indtipopessoa;
-                    mskCEP.Text = cliente.Cep;
-                    txtLogradouro.Text = cliente.Logradouro;
-                    txtBairro.Text = cliente.Bairro;
-                    txtNumero.Text = cliente.Numero;
-                    txtMunicipio.Text = cliente.Localidade;
-                    txtComplemento.Text = cliente.Complemento;
-                    txtUf.Text = cliente.Uf;
+                    //txtCodcliente.Text = cliente.Codcliente.ToString();
+                    //txtNomcliente.Text = cliente.Nomcliente;
+                    //txtEmail.Text = cliente.Email;
+                    //mskCPFCNPJ.Text = cliente.Cpfcnpj;
+                    //mskDdd1.Text = cliente.Ddd1;
+                    //mskTelefone1.Text = cliente.Telefone1;
+                    //mskDdd2.Text = cliente.Ddd2;
+                    //mskTelefone2.Text = cliente.Telefone2;
+                    //Datnascimento.Value = cliente.Datnascimento;
+                    //txtIdade.Text = cliente.Idade.ToString();
+                    //cboIndTipoPessoa.SelectedValue = cliente.Indtipopessoa;
+                    //mskCEP.Text = cliente.Cep;
+                    //txtLogradouro.Text = cliente.Logradouro;
+                    //txtBairro.Text = cliente.Bairro;
+                    //txtNumero.Text = cliente.Numero;
+                    //txtMunicipio.Text = cliente.Localidade;
+                    //txtComplemento.Text = cliente.Complemento;
+                    //txtUf.Text = cliente.Uf;
 
-                    //mskCPFCNPJ.Enabled = false;
+                    txtCodcliente.SetValue(cliente.Codcliente);
+                    txtNomcliente.SetValue(cliente.Nomcliente);
+                    txtEmail.SetValue(cliente.Email);
+                    mskCPFCNPJ.SetValue(cliente.Cpfcnpj);
+                    mskDdd1.SetValue(cliente.Ddd1);
+                    mskTelefone1.SetValue(cliente.Telefone1);
+                    mskDdd2.SetValue(cliente.Ddd2);
+                    mskTelefone2.SetValue(cliente.Telefone2);
+                    Datnascimento.Value = cliente.Datnascimento;
+                    txtIdade.SetValue(cliente.Idade);
+                    cboIndTipoPessoa.SetValue<int>(cliente.Indtipopessoa);
+                    mskCEP.SetValue(cliente.Cep);
+                    txtLogradouro.SetValue(cliente.Logradouro);
+                    txtBairro.SetValue(cliente.Bairro);
+                    txtNumero.SetValue(cliente.Numero);
+                    txtMunicipio.SetValue(cliente.Localidade);
+                    txtComplemento.SetValue(cliente.Complemento);
+                    txtUf.SetValue(cliente.Uf);
+
                     tbrExcluir.Enabled = true;
 
                 }
@@ -94,25 +113,26 @@ namespace CadastroCliente
 
         private void LimpaTela()
         {
-            txtCodcliente.Text = null;
-            txtNomcliente.Text = null;
-            txtEmail.Text = null;
-            mskCPFCNPJ.Text = null;
-            mskDdd1.Text = null;
-            mskTelefone1.Text = null;
-            mskDdd2.Text = null;
-            mskTelefone2.Text = null;
-            Datnascimento.Value = DateTime.Now;
-            txtIdade.Text = null;
-            cboIndTipoPessoa.SelectedValue = 0;
-            mskCEP.Text = null;
-            txtLogradouro.Text = null;
-            txtBairro.Text = null;
-            txtNumero.Text = null;
-            txtMunicipio.Text = null;
-            txtComplemento.Text = null;
-            txtUf.Text = null;
+            this.ClearFields();
+            //txtCodcliente.Text = null;
+            //txtNomcliente.Text = null;
+            //txtEmail.Text = null;
+            //mskCPFCNPJ.Text = null;
+            //mskDdd1.Text = null;
+            //mskTelefone1.Text = null;
+            //mskDdd2.Text = null;
+            //mskTelefone2.Text = null;
+            //txtIdade.Text = null;
+            //mskCEP.Text = null;
+            //txtLogradouro.Text = null;
+            //txtBairro.Text = null;
+            //txtNumero.Text = null;
+            //txtMunicipio.Text = null;
+            //txtComplemento.Text = null;
+            //txtUf.Text = null;
 
+            Datnascimento.Value = DateTime.Now;
+            cboIndTipoPessoa.SetValue<int>(0);
 
 
             //mskCPFCNPJ.Enabled = true;
@@ -127,26 +147,26 @@ namespace CadastroCliente
                 {
                     return;
                 }
-                CalculaIdade(Datnascimento.Value);
 
-                cliente.Nomcliente = txtNomcliente.Text;
-                cliente.Email = txtEmail.Text;
-                cliente.Cpfcnpj = RemoveMask(mskCPFCNPJ.Text, mskCPFCNPJ.Mask);
-                cliente.Ddd1 = RemoveMask(mskDdd1.Text, mskDdd1.Mask);
-                cliente.Telefone1 = RemoveMask(mskTelefone1.Text, mskTelefone1.Mask);
-                cliente.Ddd2 = RemoveMask(mskDdd2.Text, mskDdd2.Mask);
-                cliente.Telefone2 = RemoveMask(mskTelefone2.Text, mskTelefone2.Mask);
+                txtIdade.SetValue(Utils.CalculaIdade(Datnascimento.Value));
+
+                cliente.Nomcliente = txtNomcliente.GetValue<string>();
+                cliente.Email = txtEmail.GetValue<string>();
+                cliente.Cpfcnpj = mskCPFCNPJ.GetValue<string>();
+                cliente.Ddd1 = mskDdd1.GetValue<string>();
+                cliente.Telefone1 = mskTelefone1.GetValue<string>();
+                cliente.Ddd2 = mskDdd2.GetValue<string>();
+                cliente.Telefone2 = mskTelefone2.GetValue<string>();
                 cliente.Datnascimento = Datnascimento.Value;
-                cliente.Idade = Convert.ToInt16(txtIdade.Text);
-                cliente.Indtipopessoa = Convert.ToInt16(cboIndTipoPessoa.SelectedValue);
-                cliente.Cep = RemoveMask(mskCEP.Text, mskCEP.Mask);
-                cliente.Logradouro = txtLogradouro.Text;
-                cliente.Bairro= txtBairro.Text;
-                cliente.Numero= txtNumero.Text;
-                cliente.Localidade = txtMunicipio.Text;
-                cliente.Complemento= txtComplemento.Text;
-                cliente.Uf= txtUf.Text;
-
+                cliente.Idade = txtIdade.GetValue<short>();
+                cliente.Indtipopessoa = cboIndTipoPessoa.GetValue<short>();
+                cliente.Cep = mskCEP.GetValue<string>();
+                cliente.Logradouro = txtLogradouro.GetValue<string>();
+                cliente.Bairro = txtBairro.GetValue<string>();
+                cliente.Numero = txtNumero.GetValue<string>();
+                cliente.Localidade = txtMunicipio.GetValue<string>();
+                cliente.Complemento = txtComplemento.GetValue<string>();
+                cliente.Uf = txtUf.GetValue<string>();
 
                 if (cliente.Codcliente.HasValue)
                 {
@@ -180,13 +200,13 @@ namespace CadastroCliente
 
         private bool Valida()
         {
-            string CPFCNPJ = RemoveMask(mskCPFCNPJ.Text, mskCPFCNPJ.Mask);
-            string DDD1 = RemoveMask(mskDdd1.Text, mskDdd1.Mask);
-            string telefone1 = RemoveMask(mskTelefone1.Text, mskTelefone1.Mask);
-            string DDD2 = RemoveMask(mskDdd2.Text, mskDdd2.Mask);
-            string telefone2 = RemoveMask(mskTelefone2.Text, mskTelefone2.Mask);
+            string CPFCNPJ = mskCPFCNPJ.GetValue<string>();
+            string DDD1 = mskDdd1.GetValue<string>();
+            string telefone1 = mskTelefone1.GetValue<string>();
+            string DDD2 = mskDdd2.GetValue<string>();
+            string telefone2 = mskTelefone2.GetValue<string>();
 
-            string cep = RemoveMask(mskCEP.Text, mskCEP.Mask);
+            string cep = mskCEP.GetValue<string>();
 
             bool DDD1Preenchido = !string.IsNullOrWhiteSpace(DDD1);
             bool telefone1Preenchido = !string.IsNullOrWhiteSpace(telefone1);
@@ -319,13 +339,7 @@ namespace CadastroCliente
 
         private void Datnascimento_Leave(object sender, EventArgs e)
         {
-            CalculaIdade(Datnascimento.Value);
-        }
-
-        private void CalculaIdade(DateTime datNascimento)
-        {
-            int idade = Convert.ToInt32((DateTime.Today - datNascimento).TotalDays / 365.2425);
-            txtIdade.Text = idade.ToString();
+            txtIdade.SetValue(Utils.CalculaIdade(Datnascimento.Value));
         }
 
         private void cboTipoPessoa_SelectedValueChanged(object sender, EventArgs e)
@@ -350,14 +364,14 @@ namespace CadastroCliente
             }
         }
 
-        private string RemoveMask(string texto, string mask)
-        {
-            foreach (char m in mask)
-            {
-                texto = texto.Replace(m.ToString(), "");
-            }
-            return texto.Trim();
-        }
+        //private string RemoveMask(string texto, string mask)
+        //{
+        //    foreach (char m in mask)
+        //    {
+        //        texto = texto.Replace(m.ToString(), "");
+        //    }
+        //    return texto.Trim();
+        //}
 
         private void tbrExcluir_Click(object sender, EventArgs e)
         {
@@ -387,14 +401,13 @@ namespace CadastroCliente
         private void mskCEP_Leave(object sender, EventArgs e)
         {
             BuscaCep();
-
         }
 
         private void BuscaCep()
         {
             try
             {
-                string cep = RemoveMask(mskCEP.Text, mskCEP.Mask);
+                string cep = mskCEP.GetValue<string>();
 
                 CEP Cep = new CEP();
 

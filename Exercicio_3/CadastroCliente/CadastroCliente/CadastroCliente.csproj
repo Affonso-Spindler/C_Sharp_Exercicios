@@ -94,6 +94,9 @@
     <Compile Include="Conection.cs" />
     <Compile Include="DbHelper.cs" />
     <Compile Include="DB\DbCliente.cs" />
+    <Compile Include="Extensions\ComboEx.cs" />
+    <Compile Include="Extensions\ControlsEx.cs" />
+    <Compile Include="Extensions\MaskEx.cs" />
     <Compile Include="HttpInstance.cs" />
     <Compile Include="UI\prBuscaCliente.cs">
       <SubType>Form</SubType>
